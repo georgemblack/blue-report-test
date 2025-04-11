@@ -1,0 +1,203 @@
+/*--------------------------------*/
+/*         Variables              */
+/*--------------------------------*/
+:root {
+  /* Layout */
+  --body-padding: 2rem;
+
+  /* Fonts */
+  --serif-font: "Crete Round", serif;
+  --sans-serif-font: system-ui;
+  --font-size-small: 0.85em;
+  --font-weight-normal: 400;
+
+  /* General purpose colors */
+  --background-color: #f0ece9;
+  --line-separator-color: rgba(0, 0, 0, 0.05);
+
+  /* Text colors */
+  --header-accent-color: #4286f4;
+  --header-accent-color-secondary: #78acff;
+  --header-accent-color-transparent: rgba(66, 134, 244, 0.2);
+  --link-color: #2b589f;
+  --link-hover-color: color-mix(in srgb, var(--link-color) 85%, black);
+  --body-text-color: #2d2d2d;
+  --faded-text-color-1: color-mix(in srgb, var(--body-text-color) 45%, var(--background-color));
+  --faded-text-color-2: color-mix(in srgb, var(--body-text-color) 80%, var(--background-color));
+
+  /* Button colors */
+  --button-background: linear-gradient(rgba(85, 170, 255, 0.05), rgba(85, 170, 255, 0.1));
+  --button-background-active: linear-gradient(rgba(85, 170, 255, 0.1), rgba(85, 170, 255, 0.2));
+  --help-icon-color: rgba(0, 0, 0, 0.05);
+
+  /* Toggle colors */
+  --toggle-background-color: color-mix(in srgb, var(--background-color) 75%, white);
+  --toggle-selected-color: color-mix(in srgb, var(--header-accent-color) 15%, var(--toggle-background-color));
+
+  /* Cards */
+  --card-background-color: #f4f0eb;
+  --card-background: linear-gradient(135deg, transparent, rgba(85, 170, 255, 0.05));
+  --card-box-shadow: 0px 0px 50px -25px rgba(0, 0, 0, 0.15);
+}
+
+/* Small break-point */
+@media screen and (max-width: 36em) {
+  :root {
+    --body-padding: 0.85rem;
+  }
+}
+
+/* Dark mode */
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    /* General purpose colors */
+    --background-color: #121415;
+    --line-separator-color: rgba(255, 255, 255, 0.05);
+
+    /* Text colors */
+    --body-text-color: #f7f7f7;
+    --link-color: #79b8ff;
+    --link-hover-color: color-mix(in srgb, var(--link-color) 85%, white);
+
+    /* Button colors */
+    --button-background: linear-gradient(rgba(85, 170, 255, 0.1), rgba(85, 170, 255, 0.08));
+    --button-background-active: linear-gradient(rgba(85, 170, 255, 0.2), rgba(85, 170, 255, 0.1));
+    --help-icon-color: rgba(255, 255, 255, 0.1);
+
+    /* Toggle colors */
+    --toggle-background-color: color-mix(in srgb, var(--background-color) 95%, white);
+    --toggle-selected-color: color-mix(in srgb, var(--header-accent-color) 15%, var(--toggle-background-color));
+  }
+}
+
+/*--------------------------------------*/
+/*         Primary elements             */
+/*--------------------------------------*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 1em auto;
+  padding: 0 var(--body-padding);
+  max-width: 56rem;
+  color: var(--body-text-color);
+  font-family: var(--sans-serif-font);
+  font-weight: var(--font-weight-normal);
+  font-style: normal;
+  background-color: var(--background-color);
+}
+
+header {
+  margin-top: 2em;
+  text-align: center;
+  font-family: var(--serif-font);
+}
+
+header h1 {
+  letter-spacing: -1px;
+}
+
+header h1 a {
+  color: var(--body-text-color);
+}
+
+header h1 a:hover {
+  text-decoration: none;
+  color: var(--body-text-color);
+}
+
+header h1 .accent {
+  color: var(--header-accent-color);
+  background: linear-gradient(315deg, var(--header-accent-color), var(--header-accent-color-secondary));
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+main {
+  margin-top: 1.5em;
+}
+
+footer {
+  margin: 4em 0;
+  text-align: center;
+}
+
+footer p {
+  margin-top: 0.5em;
+  font-size: var(--font-size-small);
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--serif-font);
+  font-weight: var(--font-weight-normal);
+}
+
+h2 {
+  font-size: 1.25em;
+  overflow-wrap: anywhere;
+}
+
+/* medium break-point */
+@media screen and (max-width: 56em) {
+  h2 {
+    font-size: 1.15em;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/*-------------------------------*/
+/*         Sections              */
+/*-------------------------------*/
+.group {
+  margin-top: 1.5em;
+}
+
+section {
+  padding: 2em 0em;
+  border-top: 2px solid var(--line-separator-color);
+}
+
+section:last-of-type {
+  border-bottom: 2px solid var(--line-separator-color);
+}
+
+/*--------------------------------*/
+/*         Cards                  */
+/*--------------------------------*/
+.card {
+  border: 1px solid var(--header-accent-color-transparent);
+  border-radius: 1em;
+  background-color: var(--card-background-color);
+  background: var(--card-background);
+  box-shadow: var(--card-box-shadow);
+  /* Ensure images that reach the edges don't overflow */
+  overflow: hidden;
+  /* Ensure long text (like links) doesn't cause container to expand in width */
+  overflow-wrap: anywhere;
+}
+
+/*--------------------------------*/
+/*         Tail                   */
+/*--------------------------------*/
+.tail {
+  text-align: center;
+  margin-top: 1em;
+  font-size: 0.85em;
+  color: var(--faded-text-color-1);
+  line-height: 1.75;
+}

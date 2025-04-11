@@ -1,0 +1,65 @@
+---
+import "../styles/sites.css";
+
+import Layout from "../layouts/Layout.astro";
+import Footer from "../components/Footer.astro";
+import { fetchTopSites } from "../util/Data";
+import { formatCount, formatDate } from "../util/Format";
+
+const snapshot = await fetchTopSites();
+---
+
+<Layout subtitle="The top sites on Bluesky, updated daily">
+  <main>
+    <div class="group">
+      {
+        snapshot.sites.map((site) => (
+          <section>
+            <div class="site">
+              <h2>
+                {site.rank}. {site.name}
+              </h2>
+              <div class="interactions">
+                <p>
+                  {formatCount(site.interactions)} interactions over 30 days{" "}
+                </p>
+                <div class="help">
+                  <a href="https://github.com/georgemblack/blue-report/blob/master/RANKING.md#how-are-top-sites-ranked">
+                    ?
+                  </a>
+                </div>
+              </div>
+              <h3>Top Links</h3>
+              <div class="top-links">
+                {site.links.map((link) => (
+                  <div class="top-link card">
+                    <picture>
+                      <img
+                        src={`https://theblue.report/cdn-cgi/image/width=954,format=auto/${link.thumbnail_url}`}
+                        alt={link.title}
+                      />
+                    </picture>
+                    <div class="details">
+                      <h3>
+                        <a href={link.url}>{link.title}</a>
+                      </h3>
+                      <p>
+                        {formatCount(link.interactions)} posts, reposts, and
+                        likes
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ))
+      }
+    </div>
+    <div class="tail">
+      <p>Last updated {formatDate(snapshot.generated_at)}</p>
+      <p><a href="/">Return to main report</a></p>
+    </div>
+  </main>
+  <Footer />
+</Layout>

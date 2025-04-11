@@ -1,0 +1,88 @@
+.site h2 {
+  font-size: 1.5em;
+}
+
+.site h3 {
+  margin-top: 1em;
+  font-size: 1em;
+}
+
+.site .interactions {
+  display: flex;
+  gap: 0.5em;
+  margin-top: 0.35em;
+  align-items: center;
+  color: var(--faded-text-color-1);
+}
+
+/* Help icon next to user interactions */
+.site .interactions .help a {
+  display: inline-block;
+  padding: 0.4em 0.75em;
+  font-size: var(--font-size-small);
+  background-color: var(--help-icon-color);
+  border-radius: 1em;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.top-links {
+  margin-top: 0.5em;
+  display: flex;
+  overflow-x: auto;
+  gap: 1em;
+
+  /* Extend beyond body's padding dynamically */
+  margin-left: calc(-1 * var(--body-padding));
+  margin-right: calc(-1 * var(--body-padding));
+  padding-left: var(--body-padding);
+  padding-right: var(--body-padding);
+}
+
+.top-links::-webkit-scrollbar {
+  display: none;
+}
+
+.top-link {
+  flex-grow: 0;
+  flex-shrink: 0;
+  flex-basis: 20em;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.5;
+}
+
+.top-link picture {
+  margin: 0;
+  padding: 0;
+  height: 10em;
+}
+
+/* Remove default padding added below the image */
+.top-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.top-link .details {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.top-link .details h3,
+.top-link .details p {
+  padding: 0 1rem 0 1rem;
+}
+
+.top-link .details p {
+  margin: 0.5rem 0;
+}
+
+.top-link .details p {
+  color: var(--faded-text-color-1);
+  font-size: var(--font-size-small);
+}

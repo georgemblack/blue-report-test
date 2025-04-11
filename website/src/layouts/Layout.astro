@@ -1,0 +1,103 @@
+---
+import "../styles/global.css";
+
+const { subtitle } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Metadata -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Blue Report</title>
+    <meta
+      name="description"
+      content="The top links on Bluesky, updated hourly"
+    />
+    <meta name="author" content="George Black" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://theblue.report" />
+
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="The Blue Report" />
+    <meta
+      property="og:description"
+      content="The top links on Bluesky, updated hourly"
+    />
+    <meta
+      property="og:image"
+      content="https://theblue.report/assets/preview.jpg"
+    />
+    <meta property="og:image:alt" content="The Blue Report" />
+    <meta property="og:url" content="https://theblue.report" />
+    <meta property="og:type" content="website" />
+
+    <!-- Title for app icon bookmarks  -->
+    <meta name="apple-mobile-web-app-title" content="Blue Report" />
+
+    <!-- Icons -->
+    <link
+      rel="icon"
+      type="image/png"
+      href="/icons/favicon-96x96.png"
+      sizes="96x96"
+    />
+    <link rel="icon" type="image/svg+xml" href="/icons/favicon.svg" />
+    <link rel="shortcut icon" href="/icons/favicon.ico" />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/icons/apple-touch-icon.png"
+    />
+    <link rel="manifest" href="/icons/site.webmanifest" />
+
+    <!-- Sitemap -->
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Theme color -->
+    <meta
+      name="theme-color"
+      content="#f0ece9"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#121415"
+      media="(prefers-color-scheme: dark)"
+    />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Crete+Round&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feeds -->
+    <link
+      rel="alternate"
+      type="application/atom+xml"
+      title="Atom Feed"
+      href="https://data.theblue.report/feeds/top-day.xml"
+    />
+    <link
+      rel="alternate"
+      type="application/feed+json"
+      title="JSON Feed"
+      href="https://data.theblue.report/feeds/top-day.json"
+    />
+
+    <!-- Prefetch hourly/weekly reports, as users frequently click on them -->
+    <link rel="prefetch" href="/week/" />
+    <link rel="prefetch" href="/hour/" />
+  </head>
+  <body>
+    <header>
+      <h1><a href="/">The<span class="accent">Blue</span>Report</a></h1>
+      <p class="subtitle">{subtitle}</p>
+    </header>
+    <slot />
+  </body>
+</html>

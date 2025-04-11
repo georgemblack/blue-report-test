@@ -1,0 +1,111 @@
+---
+import CenteredExpandButton from "../components/CenteredExpandButton.astro";
+import DayWeekToggle from "../components/DayWeekToggle.astro";
+import InlineExpandButton from "../components/InlineExpandButton.astro";
+import {
+  strip,
+  formatHost,
+  formatCount,
+  formatDate,
+  urlFromPost,
+} from "../util/Format";
+
+const { links, toggle, generatedAt } = Astro.props;
+---
+
+<main>
+  <DayWeekToggle toggle={toggle} />
+  <div class="group">
+    {
+      links.map((link) => (
+        <section>
+          <div class="link">
+            <a href={link.url} class="preview">
+              {link.thumbnail_url ? (
+                <picture>
+                  <source
+                    srcset={`https://theblue.report/cdn-cgi/image/width=192,format=auto/${link.thumbnail_url}`}
+                    media="(max-width: 576px)"
+                  />
+                  <img
+                    src={`https://theblue.report/cdn-cgi/image/width=480,format=auto/${link.thumbnail_url}`}
+                    alt={link.title}
+                  />
+                </picture>
+              ) : (
+                <div class="placeholder">📄</div>
+              )}
+            </a>
+            <div class="content">
+              <a href={link.url}>
+                <h2>
+                  {link.rank}. {link.title}
+                </h2>
+              </a>
+              <div class="subcontent">
+                <p class="metadata">
+                  <span class="host">{formatHost(link.url)}</span>
+                  <span class="bullet">•</span>
+                  <span>
+                    {formatCount(link.post_count)} posts,{" "}
+                    {formatCount(link.repost_count)} reposts,{" "}
+                    {formatCount(link.like_count)} likes
+                  </span>
+                </p>
+                <InlineExpandButton id={strip(link.url)} />
+              </div>
+            </div>
+          </div>
+          <div class="link-details" id={strip(link.url)}>
+            <div class="recommended-posts">
+              {link.recommended_posts.map((post) => (
+                <div class="recommended-post card">
+                  <div class="inner">
+                    <div>
+                      <p class="username">{post.username}</p>
+                      <a
+                        class="handle"
+                        href={`https://bsky.app/profile/${post.handle}`}
+                      >
+                        {post.handle}
+                      </a>
+                      <p class="text">{post.text}</p>
+                    </div>
+                    <div class="view-more">
+                      <a href={urlFromPost(post.at_uri, post.handle)}>
+                        View Post
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+          <CenteredExpandButton id={strip(link.url)} />
+        </section>
+      ))
+    }
+  </div>
+  <div class="tail">
+    <p>Last updated {formatDate(generatedAt)}</p>
+    <p><a href="/sites/">View top sites on Bluesky</a></p>
+  </div>
+  <script is:inline>
+    function toggleLinkDetails(id) {
+      const content = document.getElementById(id);
+      const inlineButton = document.getElementById(`${id}-inline`);
+      const centeredButton = document.getElementById(`${id}-centered`);
+      if (!content || !inlineButton || !centeredButton) return;
+
+      if (content.classList.contains("open")) {
+        inlineButton.classList.remove("open");
+        centeredButton.classList.remove("open");
+        content.classList.remove("open");
+      } else {
+        inlineButton.classList.add("open");
+        centeredButton.classList.add("open");
+        content.classList.add("open");
+      }
+    }
+  </script>
+</main>
